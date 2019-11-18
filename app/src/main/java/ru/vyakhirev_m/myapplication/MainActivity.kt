@@ -33,15 +33,6 @@ class MainActivity : AppCompatActivity() {
             adapter.clearAll()
             val response = getData()
             withContext(Dispatchers.Main) {
-                //                    response.forEach {
-//                        it.departure;
-//                        it.arrival;
-//                        it.thread?.transport_subtype?.title;
-//                        it.thread?.title;
-//                        it.thread?.express_type
-//                    }
-
-
                 for (train in response) {
                     if (train.departure!! > (date))
                         adapter.add(

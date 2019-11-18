@@ -27,25 +27,10 @@ abstract class SimpleListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
         notifyDataSetChanged()
     }
 
-//    fun add(newItems: List<IBaseListItem>) {
-//            items.addAll(newItems)
-//            notifyDataSetChanged()
-//    }
-
-//    fun addAtPosition(pos: Int, newItem: IBaseListItem) {
-//        items.add(pos, newItem)
-//        notifyDataSetChanged()
-//    }
-
     fun clearAll() {
         items.clear()
         notifyDataSetChanged()
     }
-
-//    fun remove(position: Int) {
-//        items.removeAt(position)
-//        notifyDataSetChanged()
-//    }
 }
 
 class TrainItem(
