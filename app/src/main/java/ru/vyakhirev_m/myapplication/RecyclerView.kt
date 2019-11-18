@@ -4,61 +4,57 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.single_train_item.view.*
 
-interface IBaseListAdapter<T> {
-    fun add(newItem: T)
-    fun add(newItems: ArrayList<T>?)
-    fun addAtPosition(pos : Int, newItem : T)
-    fun remove(position: Int)
-    fun clearAll()
-}
-
 interface IBaseListItem {
+    @LayoutRes
     fun getLayoutId(): Int
 }
 
-abstract class SimpleListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), IBaseListAdapter<IBaseListItem> {
+abstract class SimpleListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     protected val items: ArrayList<IBaseListItem> = ArrayList()
-
     override fun getItemCount() = items.size
     override fun getItemViewType(position: Int) = items[position].getLayoutId()
 
     protected fun inflateByViewType(context: Context?, viewType: Int, parent: ViewGroup) =
         LayoutInflater.from(context).inflate(viewType, parent, false)
 
-    override fun add(newItem: IBaseListItem) {
+    fun add(newItem: IBaseListItem) {
         items.add(newItem)
         notifyDataSetChanged()
     }
 
-    override fun add(newItems: ArrayList<IBaseListItem>?) {
+//    fun add(newItems: List<IBaseListItem>) {
+//            items.addAll(newItems)
+//            notifyDataSetChanged()
+//    }
 
-        for (newItem in newItems ?: return) {
-            items.add(newItem)
-            notifyDataSetChanged()
-        }
-    }
+//    fun addAtPosition(pos: Int, newItem: IBaseListItem) {
+//        items.add(pos, newItem)
+//        notifyDataSetChanged()
+//    }
 
-    override fun addAtPosition(pos: Int, newItem: IBaseListItem) {
-        items.add(pos, newItem)
-        notifyDataSetChanged()
-    }
-
-    override fun clearAll() {
+    fun clearAll() {
         items.clear()
         notifyDataSetChanged()
     }
 
-    override fun remove(position: Int) {
-        items.removeAt(position)
-        notifyDataSetChanged()
-    }
+//    fun remove(position: Int) {
+//        items.removeAt(position)
+//        notifyDataSetChanged()
+//    }
 }
 
-class TrainItem (val departure:String?, val arrival:String?, val transportTitle:String?, val threadTitle:String?, val expressType:String?):
+class TrainItem(
+    val departure: String?,
+    val arrival: String?,
+    val transportTitle: String?,
+    val threadTitle: String?,
+    val expressType: String?
+) :
     IBaseListItem {
     override fun getLayoutId(): Int {
         return R.layout.single_train_item
